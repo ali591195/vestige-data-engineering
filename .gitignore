@@ -1,0 +1,103 @@
+# ================================
+# PyCharm / JetBrains
+# ================================
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ================================
+# Python
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Type checkers / linters
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# ================================
+# Environment / Secrets
+# ================================
+.env
+.env.*
+!.env.example
+
+# Azure / database credentials
+*.pem
+*.key
+secrets/
+credentials/
+
+# ================================
+# Local data
+# ================================
+# Keep the directory structure, but don't commit generated/local data
+data/processed/
+data/staging/
+data/output/
+
+# Local database / temporary files
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+# Logs
+# ================================
+*.log
+logs/
+
+# ================================
+# OS files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# Jupyter
+# ================================
+.ipynb_checkpoints/
+
+# ================================
+# Temporary files
+# ================================
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# ================================
+# Power BI local/cache files
+# ================================
+powerbi/.pbi/
+powerbi/.cache/
+powerbi/.tmp/
+
+# ================================
+# Md files
+# ================================
+project-spec.md
