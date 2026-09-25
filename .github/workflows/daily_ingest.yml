@@ -26,9 +26,9 @@ jobs:
 
       - name: Run daily ingestion
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          AIVEN_PG_HOST: ${{ secrets.AIVEN_PG_HOST }}
+          AIVEN_PG_PORT: ${{ secrets.AIVEN_PG_PORT }}
+          AIVEN_PG_DATABASE: ${{ secrets.AIVEN_PG_DATABASE }}
+          AIVEN_PG_USER: ${{ secrets.AIVEN_PG_USER }}
+          AIVEN_PG_PASSWORD: ${{ secrets.AIVEN_PG_PASSWORD }}
         run: python -m src.pipelines.daily_ingest
