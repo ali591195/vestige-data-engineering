@@ -1,10 +1,13 @@
 from psycopg import sql
 
-from src.constants import ASSET_CATEGORIES
-
+from src.constants import ASSET_CATEGORIES, FAILURE_MODES
 
 ASSET_CATEGORY_VALUES = sql.SQL(", ").join(
     sql.Literal(category) for category in ASSET_CATEGORIES
+)
+
+FAILURE_MODE_VALUES = sql.SQL(", ").join(
+    sql.Literal(failure) for failure in FAILURE_MODES
 )
 
 # Dimension tables schemas
@@ -50,17 +53,11 @@ DIM_FAILURE_MODE_SCHEMA = sql.SQL("""
     CREATE TABLE IF NOT EXISTS dim_failure_mode (
         failure_mode_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         name VARCHAR(50) NOT NULL UNIQUE
-            CHECK (
-                name IN (
-                    'TOOL_WEAR_FAILURE',
-                    'HEAT_DISSIPATION_FAILURE',
-                    'POWER_FAILURE',
-                    'OVERSTRAIN_FAILURE',
-                    'RANDOM_FAILURE'
-                )
-            )
+            CHECK (name IN ({values}))
     );
-""")
+""").format(
+    values=FAILURE_MODE_VALUES
+)
 
 # Link table schema
 ASSET_CATEGORY_ASSIGNMENT_SCHEMA = sql.SQL("""
