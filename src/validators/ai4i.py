@@ -1,14 +1,7 @@
 import math
 from numbers import Real
 
-
-FAILURE_MODES = (
-    "TWF",
-    "HDF",
-    "PWF",
-    "OSF",
-    "RNF",
-)
+from src.constants import FAILURE_MODES
 
 NUMERIC_FIELDS = (
     "air_temperature",
@@ -19,7 +12,7 @@ NUMERIC_FIELDS = (
 )
 
 
-def validate_ai4i_row(row: dict) -> list[str]:
+def validate_ai4i(row: dict) -> list[str]:
     """
     Validate one AI4I-style maintenance event before loading into Vestige.
 
@@ -92,7 +85,7 @@ if __name__ == "__main__":
         if row[mode] == 1
     ]
 
-    errors = validate_ai4i_row(row)
+    errors = validate_ai4i(row)
 
     if errors:
         print("Invalid AI4I row:")
