@@ -1,5 +1,12 @@
 from psycopg import sql
 
+from src.constants import ASSET_CATEGORIES
+
+
+ASSET_CATEGORY_VALUES = sql.SQL(", ").join(
+    sql.Literal(category) for category in ASSET_CATEGORIES
+)
+
 # Dimension tables schemas
 DIM_ASSET_SCHEMA = sql.SQL("""
     CREATE TABLE IF NOT EXISTS dim_asset (
@@ -12,33 +19,23 @@ DIM_ASSET_CATEGORY_SCHEMA = sql.SQL("""
     CREATE TABLE IF NOT EXISTS dim_asset_category (
         asset_category_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         category VARCHAR(50) NOT NULL UNIQUE
-            CHECK (
-                category IN (
-                    'HVAC',
-                    'ELECTRICAL',
-                    'VERTICAL_TRANSPORTATION',
-                    'HOISTING'
-                )
-            )
+            CHECK (category IN ({values}))
     );
-""")
+""").format(
+    values=ASSET_CATEGORY_VALUES
+)
 
 DIM_TECHNICIAN_SCHEMA = sql.SQL("""
     CREATE TABLE IF NOT EXISTS dim_technician (
         technician_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         specialty VARCHAR(50) NOT NULL
-            CHECK (
-                specialty IN (
-                    'HVAC',
-                    'ELECTRICAL',
-                    'VERTICAL_TRANSPORTATION',
-                    'HOISTING'
-                )
-            ),
+            CHECK (specialty IN ({values})),
         hire_date DATE NOT NULL
     );
-""")
+""").format(
+    values=ASSET_CATEGORY_VALUES
+)
 
 DIM_SITE_SCHEMA = sql.SQL("""
     CREATE TABLE IF NOT EXISTS dim_site (
